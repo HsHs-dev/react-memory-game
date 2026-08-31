@@ -1,38 +1,57 @@
+import { useState } from "react";
+
+const MAX_VAL = 8;
+
+function getRandomInt() {
+  return Math.floor(Math.random() * MAX_VAL);
+}
+
+function generateSeq(seq) {
+  console.log(seq);
+  let rand = getRandomInt();
+  if (seq.length === 0) {
+    return [...seq, rand];
+  } else {
+    while (rand === seq[seq.length - 1]) rand = getRandomInt();
+    return [...seq, rand];
+  }
+}
+
 function App() {
-  const MAX_VAL = 8;
+  const [seq, setSeq] = useState([]);
+  const [playing, setPlaying] = useState(false);
 
-  let seq = [];
+  const startGame = () => {
+    // init sequence
+    setSeq([getRandomInt()]);
 
-  function getRandomInt() {
-    return Math.floor(Math.random() * MAX_VAL);
-  }
+    // set The state to playing
+    setPlaying(true);
+  };
 
-  function generateSeq() {
-    let rand = getRandomInt();
-    if (seq.length === 0) {
-      seq.push(rand);
-    } else {
-      while (rand === seq[seq.length - 1]) rand = getRandomInt();
-      seq.push(rand);
-    }
-  }
-
-  let playing = true;
-
-  while (playing) {
-    generateSeq();
+  const handlePlay = () => {
     console.log(seq);
     for (const x of seq) {
-      const guess = parseInt(prompt("Enter seq"));
+      const guess = parseInt(prompt("Enter sequence:"));
       if (guess !== x) {
         alert("WRONG!");
-        playing = false;
-        break;
+        setPlaying(false);
+        return;
       }
     }
-  }
+    setSeq((prevSeq) => generateSeq(prevSeq));
+  };
 
-  return <h1>Hello</h1>;
+  return (
+    <>
+      <h1>Memory Game</h1>
+      {!playing ? (
+        <button onClick={startGame}>Start Game</button>
+      ) : (
+        <button onClick={handlePlay}>Play Sequence</button>
+      )}
+    </>
+  );
 }
 
 export default App;
