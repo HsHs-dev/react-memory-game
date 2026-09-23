@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import PlayLayout from "./components/PlayLayout";
 const MAX_VAL = 8;
 
 function getRandomInt() {
@@ -42,16 +42,7 @@ function App() {
     setSeq((prevSeq) => generateSeq(prevSeq));
   };
 
-  return (
-    <>
-      <h1>Memory Game</h1>
-      {!playing ? (
-        <button onClick={startGame}>Start Game</button>
-      ) : (
-        <button onClick={handlePlay}>Play Sequence</button>
-      )}
-    </>
-  );
+  return <PlayLayout />;
 }
 
 export default App;
