@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+:root {
+  --bg-cloud-1: #ffffff;
+  --bg-cloud-2: #eef2f8;
+  --bg-cloud-3: #dbe3ef;
+}
+
+
+@keyframes drift1 {
+
+  0%,
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+
+  33% {
+    transform: translate(32%, -20%) scale(1.18);
+  }
+
+  66% {
+    transform: translate(-18%, 24%) scale(0.88);
+  }
+}
+
+@keyframes drift2 {
+
+  0%,
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+
+  33% {
+    transform: translate(-26%, 22%) scale(1.22);
+  }
+
+  66% {
+    transform: translate(22%, -18%) scale(0.86);
+  }
+}
