@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Memory Sequence — Keycap Grid</title>
+<style>
+  :root {
+    --bg-cloud-1: #ffffff;
+    --bg-cloud-2: #eef2f8;
+    --bg-cloud-3: #dbe3ef;
+    --base-tint-hi: 132, 134, 138;
+    --base-tint-lo: 90, 92, 96;
+    --cap-tint-hi: 240, 241, 243;
+    --cap-tint-lo: 208, 210, 214;
+    --shadow-cloud: rgba(58, 70, 94, 0.4);
+    --shadow-cloud-soft: rgba(58, 70, 94, 0.22);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--bg-cloud-1) 0%, var(--bg-cloud-2) 55%, var(--bg-cloud-3) 100%);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: clamp(16px, 3vw, 28px) clamp(20px, 4vw, 40px);
+    position: relative;
+    z-index: 2;
+  }
+
+  .brand {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #4a5568;
+  }
+
+  .nav {
+    display: flex;
+    gap: clamp(4px, 1vw, 10px);
+  }
+
+  .nav-link {
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #6b7688;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .nav-link.nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #3d4759;
+  }
+
+  .nav-link.active {
+    background: rgba(255, 255, 255, 0.85);
+    color: #3d4759;
+    box-shadow: 0 2px 6px -2px var(--shadow-cloud);
+  }
+
+  .nav-link:focus-visible {
+    outline: 2px solid var(--shadow-cloud);
+    outline-offset: 2px;
+  }
+
+  .scene {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+  }
+
+  .foam {
+    position: absolute;
+    width: min(48vw, 440px);
+    height: min(48vw, 440px);
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+  }
+
+  .foam-a {
+    background: rgba(255, 255, 255, 0.82);
+    top: 4%;
+    left: 6%;
+    animation: drift1 12s ease-in-out infinite;
+  }
+
+  .foam-b {
+    background: rgba(200, 213, 232, 0.6);
+    right: 6%;
+    bottom: 4%;
+    animation: drift2 15s ease-in-out infinite;
+  }
+
+  @keyframes drift1 {
+    0%, 100% { transform: translate(0%, 0%) scale(1); }
+    33% { transform: translate(32%, -20%) scale(1.18); }
+    66% { transform: translate(-18%, 24%) scale(0.88); }
+  }
+
+  @keyframes drift2 {
+    0%, 100% { transform: translate(0%, 0%) scale(1); }
+    33% { transform: translate(-26%, 22%) scale(1.22); }
+    66% { transform: translate(22%, -18%) scale(0.86); }
+  }
+
+  .grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, clamp(72px, 12vw, 118px));
+    grid-auto-rows: clamp(72px, 12vw, 118px);
+    gap: clamp(22px, 3.2vw, 30px);
+    padding: clamp(24px, 3.6vw, 34px);
+  }
+
+  .key {
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .key-base {
+    position: absolute;
+    inset: 0;
+    border-radius: 24%;
+    background: linear-gradient(180deg, rgba(var(--base-tint-hi), 0.54), rgba(var(--base-tint-lo), 0.54));
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    box-shadow: 0 16px 24px -8px var(--shadow-cloud);
+    transition: box-shadow 0.12s ease;
+  }
+
+  .key-cap {
+    position: absolute;
+    inset: 0;
+    border-radius: 24%;
+    background:
+      radial-gradient(120% 55% at 50% -8%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 62%),
+      linear-gradient(155deg, rgba(var(--cap-tint-hi), 0.48), rgba(var(--cap-tint-lo), 0.32));
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -3px 5px rgba(90, 105, 130, 0.18),
+      0 3px 5px rgba(58, 70, 94, 0.22);
+    transform: translateY(-12%);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .key-base {
+      background: rgba(110, 112, 116, 0.88);
+    }
+    .key-cap {
+      background: rgba(240, 241, 243, 0.92);
+    }
+  }
+
+  /* Real refraction, not just blur — bends the backdrop through a procedural
+     noise displacement map instead of only softening it. Chromium only for
+     now (url() filters inside backdrop-filter aren't cross-browser yet), so
+     this is an enhancement layered on the plain blur above, never a
+     replacement — Safari/Firefox simply never match this query. */
+  @supports (backdrop-filter: url(#liquidGlass)) {
+    .key-base {
+      backdrop-filter: url(#liquidGlass) blur(3px) saturate(160%);
+      -webkit-backdrop-filter: url(#liquidGlass) blur(3px) saturate(160%);
+    }
+    .key-cap {
+      backdrop-filter: url(#liquidGlass) blur(3px) saturate(180%);
+      -webkit-backdrop-filter: url(#liquidGlass) blur(3px) saturate(180%);
+    }
+  }
+
+  /* Flash layer: a fixed-appearance overlay that only ever animates opacity.
+     Cross-fading two different gradients directly is not reliably smooth
+     across browsers, opacity always is. The glossy look — radial highlight
+     plus a color wash — is baked in and never itself transitioned. */
+  .key-cap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(120% 60% at 50% -10%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 65%),
+      linear-gradient(165deg, rgba(var(--flash-rgb, 132, 134, 138), 0.62), rgba(var(--flash-rgb, 132, 134, 138), 0.3));
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+  }
+
+  .key.flash .key-cap::after {
+    opacity: 1;
+    transition: opacity 0s;
+  }
+
+  .key:hover .key-cap {
+    transform: translateY(-15%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -3px 5px rgba(100, 115, 140, 0.24),
+      0 5px 8px rgba(58, 70, 94, 0.26);
+  }
+
+  .key:hover .key-base {
+    box-shadow: 0 20px 28px -8px var(--shadow-cloud);
+  }
+
+  .key:active .key-cap,
+  .key.pressed .key-cap {
+    transform: translateY(-3%);
+    transition-duration: 0.05s;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      inset 0 2px 6px rgba(58, 70, 94, 0.32);
+  }
+
+  .key:active .key-base,
+  .key.pressed .key-base {
+    box-shadow: 0 6px 10px -4px var(--shadow-cloud-soft);
+    transition-duration: 0.05s;
+  }
+
+  .key:focus {
+    outline: none;
+  }
+
+  .key:focus-visible .key-cap {
+    outline: 2px solid var(--shadow-cloud);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .foam-a, .foam-b {
+      animation: none;
+    }
+    .key-cap, .key-base, .key-cap::after {
+      transition: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+    <defs>
+      <filter id="liquidGlass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="5" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="2.5" result="softNoise"/>
+        <feDisplacementMap in="SourceGraphic" in2="softNoise" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+  <header class="topbar">
+    <div class="brand">Memory Sequence</div>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link active" href="#" aria-current="page">Play</a>
+      <a class="nav-link" href="#">Leaderboard</a>
+      <a class="nav-link" href="#">About</a>
+      <!-- TODO: replace # with the repo's actual GitHub URL -->
+      <a class="nav-link nav-icon" href="#" aria-label="View source on GitHub" title="View source on GitHub">
+        <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+      </a>
+    </nav>
+  </header>
+  <main class="scene">
+    <div class="foam foam-a" aria-hidden="true"></div>
+    <div class="foam foam-b" aria-hidden="true"></div>
+    <div class="grid" role="group" aria-label="3 by 3 grid of buttons">
+      <button class="key" type="button" data-note="0" aria-label="Tile 1">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="1" aria-label="Tile 2">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="2" aria-label="Tile 3">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="3" aria-label="Tile 4">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="4" aria-label="Tile 5">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="5" aria-label="Tile 6">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="6" aria-label="Tile 7">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="7" aria-label="Tile 8">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+      <button class="key" type="button" data-note="8" aria-label="Tile 9">
+        <span class="key-base" aria-hidden="true"></span>
+        <span class="key-cap" aria-hidden="true"></span>
+      </button>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      let audioCtx;
+
+      var NOTES = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99];
+      var FLASH_RGB = [
+        '242, 139, 130',
+        '247, 184, 120',
+        '245, 223, 142',
+        '168, 216, 176',
+        '143, 209, 201',
+        '143, 184, 232',
+        '168, 168, 232',
+        '200, 160, 224',
+        '235, 160, 200'
+      ];
+
+      function playNote(freq) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!audioCtx) audioCtx = new AudioContextClass();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+
+        const noiseDur = 0.018;
+        const bufferSize = Math.max(1, Math.floor(audioCtx.sampleRate * noiseDur));
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = noiseBuffer;
+        const noiseFilter = audioCtx.createBiquadFilter();
+        noiseFilter.type = 'highpass';
+        noiseFilter.frequency.value = 3500;
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.12, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + noiseDur);
+        noise.connect(noiseFilter).connect(noiseGain).connect(audioCtx.destination);
+
+        const osc1 = audioCtx.createOscillator();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, now);
+
+        const osc2 = audioCtx.createOscillator();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(freq * 2, now);
+
+        const gain1 = audioCtx.createGain();
+        gain1.gain.setValueAtTime(0.0001, now);
+        gain1.gain.exponentialRampToValueAtTime(0.3, now + 0.006);
+        gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+
+        const gain2 = audioCtx.createGain();
+        gain2.gain.setValueAtTime(0.0001, now);
+        gain2.gain.exponentialRampToValueAtTime(0.09, now + 0.006);
+        gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+
+        osc1.connect(gain1).connect(audioCtx.destination);
+        osc2.connect(gain2).connect(audioCtx.destination);
+
+        noise.start(now);
+        noise.stop(now + noiseDur);
+        osc1.start(now);
+        osc1.stop(now + 0.24);
+        osc2.start(now);
+        osc2.stop(now + 0.16);
+      }
+
+      function flashColor(keyEl, rgb) {
+        keyEl.style.setProperty('--flash-rgb', rgb);
+        keyEl.classList.add('flash');
+        setTimeout(function () {
+          keyEl.classList.remove('flash');
+        }, 300);
+      }
+
+      document.querySelectorAll('.key').forEach(function (key) {
+        const noteIndex = parseInt(key.dataset.note, 10);
+
+        key.addEventListener('click', function () {
+          playNote(NOTES[noteIndex]);
+          flashColor(key, FLASH_RGB[noteIndex]);
+        });
+
+        // :active is unreliable for Enter on a <button> across browsers —
+        // Space generally triggers it, Enter often doesn't — so the press
+        // animation is driven explicitly here for keyboard activation too.
+        key.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+            key.classList.add('pressed');
+          }
+        });
+
+        key.addEventListener('keyup', function (e) {
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+            key.classList.remove('pressed');
+          }
+        });
+
+        key.addEventListener('blur', function () {
+          key.classList.remove('pressed');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
