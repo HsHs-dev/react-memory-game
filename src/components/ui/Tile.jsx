@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Tile({ idx, flashColor }) {
+export default function Tile({ idx, flashColor, isFlashing }) {
 
   const [flash, setFlash] = useState(false)
 
@@ -23,7 +23,7 @@ export default function Tile({ idx, flashColor }) {
       focus:outline-none
       cursor-pointer
       [-webkit-tap-highlight-color:transparent]
-      ${flash ? "flash" : ""}
+      ${flash || isFlashing ? "flash" : ""}
     `}
       style={{ "--flash-rgb": `${flashColor}` }}
       onClick={handleFlash}

@@ -1,5 +1,5 @@
 import Tile from "./ui/Tile"
-export default function Board() {
+export default function Board({ flashIndex }) {
 
   const FLASH_RGB = [
     '242, 139, 130',
@@ -24,9 +24,13 @@ export default function Board() {
   p-[clamp(24px,3.6vw,34px)]
     ">
       {
-        [...Array(9)].map((_, idx) => {
-          return <Tile key={idx} idx={idx} flashColor={FLASH_RGB[idx]} />
-        })
+        [...Array(9)].map((_, idx) => (
+          <Tile
+            key={idx}
+            idx={idx}
+            flashColor={FLASH_RGB[idx]}
+            isFlashing={flashIndex === idx} />
+        ))
       }
     </div>
   )
