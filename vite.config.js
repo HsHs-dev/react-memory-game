@@ -4,6 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "https://github.com/hshs-dev/memory-game",
+  base: "/memory-game/",
   plugins: [react(), tailwindcss()],
 });
