@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PlayLayout from "./components/PlayLayout";
-const MAX_VAL = 8;
+
+const MAX_VAL = 9;
 
 function getRandomInt() {
   return Math.floor(Math.random() * MAX_VAL);
@@ -18,8 +19,12 @@ function generateSeq(seq) {
 }
 
 function App() {
-  const [seq, setSeq] = useState([]);
-  const [playing, setPlaying] = useState(false);
+
+  const [sequence, setSequence] = useState([])
+  const [phase, setPhase] = useState('idle')
+  const [tileIndex, setTileIndex] = useState(null)
+  const [inputIndex, setInputIndex] = useState(0)
+
 
   const startGame = () => {
     // init sequence
