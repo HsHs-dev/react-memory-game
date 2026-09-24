@@ -1,6 +1,18 @@
 import Tile from "./ui/Tile"
 export default function Board() {
 
+  const FLASH_RGB = [
+    '242, 139, 130',
+    '247, 184, 120',
+    '245, 223, 142',
+    '160, 220, 150',
+    '120, 205, 195',
+    '143, 184, 232',
+    '168, 168, 232',
+    '200, 160, 224',
+    '235, 160, 200'
+  ];
+
   return (
     <div className="
   relative 
@@ -13,7 +25,7 @@ export default function Board() {
     ">
       {
         [...Array(9)].map((_, idx) => {
-          return <Tile idx={idx} />
+          return <Tile key={idx} idx={idx} flashColor={FLASH_RGB[idx]} />
         })
       }
     </div>
