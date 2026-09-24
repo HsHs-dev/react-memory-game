@@ -39,3 +39,35 @@
     transform: translate(22%, -18%) scale(0.86);
   }
 }
+
+@keyframes feedback-fade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .feedback-flash {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    animation: feedback-fade 1200ms ease-out forwards;
+  }
+
+  .feedback-flash.is-correct {
+    background: radial-gradient(ellipse at center,
+        rgba(140, 220, 160, 0.35) 0%,
+        rgba(140, 220, 160, 0) 70%);
+  }
+
+  .feedback-flash.is-wrong {
+    background: radial-gradient(ellipse at center,
+        rgba(240, 130, 130, 0.35) 0%,
+        rgba(240, 130, 130, 0) 70%);
+  }
+}
