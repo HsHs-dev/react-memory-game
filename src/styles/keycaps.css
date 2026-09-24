@@ -1,0 +1,129 @@
+@layer components {
+
+  :root {
+    /* Base layer */
+    --base-tint-hi: 132, 134, 138;
+    --base-tint-lo: 90, 92, 96;
+
+    /* Cap layer */
+    --cap-tint-hi: 240, 241, 243;
+    --cap-tint-lo: 208, 210, 214;
+
+    /* Shadows */
+    --shadow-cloud: rgba(58, 70, 94, 0.4);
+    --shadow-cloud-soft: rgba(58, 70, 94, 0.22);
+  }
+
+  .key-base {
+    /* Tile surface base color */
+    background: linear-gradient(180deg,
+        rgba(var(--base-tint-hi), 0.54),
+        rgba(var(--base-tint-lo), 0.54));
+    border-radius: 24%;
+    box-shadow: 0 16px 24px -8px var(--shadow-cloud);
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    backdrop-filter: blur(14px) saturate(150%);
+    transition: box-shadow 0.12s ease;
+  }
+
+  .key-cap {
+    border-radius: 24%;
+
+    /* Tile surface highlight */
+    background: radial-gradient(120% 55% at 50% -8%,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0) 62%),
+      linear-gradient(155deg,
+        rgba(var(--cap-tint-hi), 0.48),
+        rgba(var(--cap-tint-lo), 0.32));
+
+    /* cast shadow */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -3px 5px rgba(90, 105, 130, 0.18),
+      0 3px 5px rgba(58, 70, 94, 0.22);
+
+    /* Show the stacking */
+    transform: translateY(-12%);
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+
+  .key:hover .key-cap {
+    transform: translateY(-15%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -3px 5px rgba(100, 115, 140, 0.24),
+      0 5px 8px rgba(58, 70, 94, 0.26);
+  }
+
+  .key:hover .key-base {
+    box-shadow: 0 20px 28px -8px var(--shadow-cloud);
+  }
+
+  .key:active .key-cap,
+  .key.pressed .key-cap {
+    transform: translateY(-3%);
+    transition-duration: 0.05s;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      inset 0 2px 6px rgba(58, 70, 94, 0.32);
+  }
+
+  .key:active .key-base,
+  .key.pressed .key-base {
+    box-shadow: 0 6px 10px -4px var(--shadow-cloud-soft);
+    transition-duration: 0.05s;
+  }
+
+  .key:focus-visible .key-cap {
+    outline: 2px solid var(--shadow-cloud);
+    outline-offset: 4px;
+  }
+
+
+  @supports (backdrop-filter: url(#liquidGlass)) {
+    .key-base {
+      backdrop-filter: url(#liquidGlass) blur(3px) saturate(160%);
+      -webkit-backdrop-filter: url(#liquidGlass) blur(3px) saturate(160%);
+    }
+
+    .key-cap {
+      backdrop-filter: url(#liquidGlass) blur(3px) saturate(180%);
+      -webkit-backdrop-filter: url(#liquidGlass) blur(3px) saturate(180%);
+    }
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .key-base {
+      background: rgba(110, 112, 116, 0.88);
+    }
+
+    .key-cap {
+      background: rgba(240, 241, 243, 0.92);
+    }
+  }
+
+  /* Flash Layer */
+  .key-cap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .key-cap,
+  .key-base {
+    transition: none;
+  }
+}

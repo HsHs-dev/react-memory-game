@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./keycaps.css";
 
 :root {
   --bg-cloud-1: #ffffff;
