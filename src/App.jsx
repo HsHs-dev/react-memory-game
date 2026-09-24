@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import PlayLayout from "./components/PlayLayout";
 import Board from "./components/Board";
-import { PHASE } from "./constants";
+import { PHASE, NOTES } from "./constants";
+import { playNote } from "./audio";
 
 const MAX_VAL = 9;
 
@@ -45,6 +46,7 @@ function App() {
 
       const idx = sequence[i]
       setTileIndex(idx)
+      playNote(NOTES[idx])
 
       timer = setTimeout(() => {
         setTileIndex(null)
@@ -55,7 +57,8 @@ function App() {
 
     }
 
-    tick()
+    // delay after inputting
+    timer = setTimeout(tick, 800);
 
     return () => {
       clearTimeout(timer)
@@ -67,17 +70,36 @@ function App() {
 
   const startGame = () => {
     const first = getRandomInt()
-    setSequence([3, 2, 8, 1])
+    setSequence([first])
     setInputIndex(0)
     setPhase(PHASE.SHOWING)
   };
 
-  const handlePlay = () => {
-  };
+  const handleTileClick = (idx) => {
+
+    if (phase !== PHASE.INPUTTING) return
+
+    if (idx !== sequence[inputIndex]) {
+      setPhase(PHASE.GAMEOVER)
+      return;
+    }
+
+    const next = inputIndex + 1
+
+    if (next === sequence.length) {
+      const extended = generateSeq(sequence)
+      setSequence(extended)
+      setInputIndex(0)
+      setPhase(PHASE.SHOWING)
+    } else {
+      setInputIndex(next)
+    }
+
+  }
 
   return (
     <PlayLayout>
-      <Board flashIndex={tileIndex} />
+      <Board flashIndex={tileIndex} onActivate={handleTileClick} />
       {
         phase === PHASE.IDLE && (
           <button type="button" onClick={startGame}

@@ -1,12 +1,16 @@
 import { useState } from "react"
+import { NOTES } from "../../constants"
+import { playNote } from "../../audio"
 
-export default function Tile({ idx, flashColor, isFlashing }) {
+export default function Tile({ idx, flashColor, isFlashing, isPressed, onActivate }) {
 
   const [flash, setFlash] = useState(false)
 
-  const handleFlash = () => {
+  const handleClick = () => {
+    playNote(NOTES[idx])
     setFlash(true)
     setTimeout(() => setFlash(false), 300)
+    onActivate?.(idx)
   }
 
   return (
@@ -24,9 +28,10 @@ export default function Tile({ idx, flashColor, isFlashing }) {
       cursor-pointer
       [-webkit-tap-highlight-color:transparent]
       ${flash || isFlashing ? "flash" : ""}
+      ${isPressed ? "pressed" : ""}
     `}
       style={{ "--flash-rgb": `${flashColor}` }}
-      onClick={handleFlash}
+      onClick={handleClick}
     >
       <span className="key-base absolute inset-0"></span>
       <span className="key-cap absolute inset-0"></span>

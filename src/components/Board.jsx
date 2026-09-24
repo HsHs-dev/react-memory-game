@@ -1,5 +1,5 @@
 import Tile from "./ui/Tile"
-export default function Board({ flashIndex }) {
+export default function Board({ flashIndex, onActivate }) {
 
   const FLASH_RGB = [
     '242, 139, 130',
@@ -29,7 +29,10 @@ export default function Board({ flashIndex }) {
             key={idx}
             idx={idx}
             flashColor={FLASH_RGB[idx]}
-            isFlashing={flashIndex === idx} />
+            isFlashing={flashIndex === idx}
+            isPressed={flashIndex === idx}
+            onActivate={onActivate}
+          />
         ))
       }
     </div>
