@@ -114,11 +114,25 @@ function App() {
 
   return (
     <PlayLayout feedback={feedback}>
+
       {(phase === PHASE.SHOWING || phase === PHASE.INPUTTING) && (
         <div className="mb-8 text-3xl font-light text-slate-600 tracking-wide">
           Level: <span className="font-semibold text-slate-800 tabular-nums">{sequence.length}</span>
         </div>
       )}
+
+      {
+        phase === PHASE.IDLE && (
+          <div className="flex flex-col items-center gap-1 mb-0.5">
+            <div className="text-[clamp(1.5rem,4vw,3rem)] font-bold text-slate-700 tracking-wide whitespace-nowrap">
+              How far can you remember?
+            </div>
+            <div className="text-lg font-normal text-slate-400 tracking-wide">
+              Watch the sequence, then play it back
+            </div>
+          </div>
+        )
+      }
 
       {phase !== PHASE.GAMEOVER && (
         <Board
@@ -128,12 +142,11 @@ function App() {
         />
       )}
 
-      {/* Start button — only in IDLE */}
       {phase === PHASE.IDLE && (
         <button
           type="button"
           onClick={startGame}
-          className="mt-8 px-6 py-3 rounded-full
+          className="mt-3 px-6 py-3 rounded-full
                    bg-white/80 text-slate-700 font-medium
                    shadow-md hover:bg-white
                    transition-colors
@@ -157,7 +170,7 @@ function App() {
             onClick={startGame}
             className="px-8 py-3 rounded-full
                      bg-slate-700 text-white font-medium
-                     shadow-lg hover:bg-slate-800
+                     shadow-lg hover:bg-slate-300
                      active:scale-95
                      transition-all duration-150
                      cursor-pointer"
