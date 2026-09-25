@@ -78,6 +78,15 @@ function App() {
     setPhase(PHASE.SHOWING)
   };
 
+  const setHighscore = () => {
+    const previous = JSON.parse(localStorage.getItem("best-score"))
+    if (previous == null) {
+      localStorage.setItem("best-score", JSON.stringify(sequence.length))
+    } else if (sequence.length > previous) {
+      localStorage.setItem("best-score", JSON.stringify(sequence.length))
+    }
+  }
+
   const handleTileClick = (idx) => {
 
     if (phase !== PHASE.INPUTTING) return
@@ -85,6 +94,7 @@ function App() {
     if (idx !== sequence[inputIndex]) {
       triggerFeedback("wrong")
       setPhase(PHASE.GAMEOVER)
+      setHighscore()
       return;
     }
 
@@ -135,8 +145,11 @@ function App() {
 
       {phase === PHASE.GAMEOVER && (
         <div className="flex flex-col items-center gap-10">
-          <div className="text-3xl font-light text-slate-600 tracking-wide">
+          <div className="text-4xl font-light text-slate-600 tracking-wide">
             Level: <span className="font-semibold text-slate-800 tabular-nums">{sequence.length}</span>
+          </div>
+          <div className="text-lg text-slate-800 tracking-wide">
+            Best Score: <span className="font-semibold text-slate-800 tabular-nums">{localStorage.getItem("best-score")}</span>
           </div>
 
           <button

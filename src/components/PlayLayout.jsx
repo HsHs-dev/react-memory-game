@@ -17,6 +17,8 @@ const PlayLayout = ({ children, feedback }) => {
       </defs>
     </svg>
 
+    <Background />
+
     {/* Feedback flash */}
     {feedback && (
       <div
@@ -25,7 +27,6 @@ const PlayLayout = ({ children, feedback }) => {
       />
     )}
 
-    <Background />
     {children}
   </main>
 };
