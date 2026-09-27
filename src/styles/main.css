@@ -7,9 +7,11 @@
   --bg-cloud-3: #dbe3ef;
 }
 
+body {
+  font-family: "Outfit";
+}
 
 @keyframes drift1 {
-
   0%,
   100% {
     transform: translate(0%, 0%) scale(1);
@@ -25,7 +27,6 @@
 }
 
 @keyframes drift2 {
-
   0%,
   100% {
     transform: translate(0%, 0%) scale(1);
@@ -60,14 +61,19 @@
   }
 
   .feedback-flash.is-correct {
-    background: radial-gradient(ellipse at center,
-        rgba(140, 220, 160, 0.35) 0%,
-        rgba(140, 220, 160, 0) 70%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(140, 220, 160, 0.35) 0%,
+      rgba(140, 220, 160, 0) 70%
+    );
   }
 
   .feedback-flash.is-wrong {
-    background: radial-gradient(ellipse at center,
-        rgba(240, 130, 130, 0.35) 0%,
-        rgba(240, 130, 130, 0) 70%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(240, 130, 130, 0.35) 0%,
+      rgba(240, 130, 130, 0) 70%
+    );
   }
 }
+
