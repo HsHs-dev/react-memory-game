@@ -39,7 +39,7 @@ export default function Play() {
 
       <ActionArea phase={phase} onStart={startGame} />
 
-      <GameOverCard phase={phase} onStart={startGame} sequence={sequence} />
+      <GameOverCard phase={phase} onRestart={startGame} sequence={sequence} />
     </>
   );
 }

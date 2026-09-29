@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { PHASE, NOTES } from "../lib/constants";
 import { playNote } from "../lib/audio";
-import { recordScore } from "../lib/scores";
 
 const MAX_VAL = 9;
 
@@ -86,7 +85,6 @@ export function useMemoryGame() {
     if (idx !== sequence[inputIndex]) {
       triggerFeedback("wrong")
       setPhase(PHASE.GAMEOVER)
-      recordScore(sequence.length)
       return;
     }
 
