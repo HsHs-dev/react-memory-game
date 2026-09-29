@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          VITE_SIMPLEBOARDS_KEY: ${{ secrets.VITE_SIMPLEBOARDS_KEY }}
+          VITE_SIMPLEBOARDS_BOARD: ${{ secrets.VITE_SIMPLEBOARDS_BOARD }}
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
