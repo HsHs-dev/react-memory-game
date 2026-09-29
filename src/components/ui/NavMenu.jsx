@@ -35,7 +35,7 @@ export default function NavMenu({ items, className = "" }) {
           e.stopPropagation();
           setOpen((v) => !v);
         }}
-        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex flex-col items-center justify-center gap-[5px]
+        className="w-9 h-9 z-50 sm:w-10 sm:h-10 rounded-full flex flex-col items-center justify-center gap-[5px]
            hover:bg-white/60 transition-colors
            focus-visible:outline-2 focus-visible:outline-offset-2
            focus-visible:outline-[var(--shadow-cloud)]
@@ -64,17 +64,14 @@ export default function NavMenu({ items, className = "" }) {
                 <li key={item.label}>
                   <a
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={item.label}
                     title={item.label}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      window.open(item.href, "_blank", "noopener,noreferrer");
-                      setOpen(false);
-                    }}
+                    onClick={() => setOpen(false)}
                     className="flex items-center justify-center p-3
-                               text-slate-600 hover:bg-white/70 hover:text-slate-800
-                               transition-colors"
+             text-slate-600 hover:bg-white/70 hover:text-slate-800
+             transition-colors"
                   >
                     <item.Icon className="w-5 h-5 pointer-events-none" />
                   </a>

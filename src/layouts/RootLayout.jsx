@@ -6,7 +6,7 @@ import { GitHubIcon, XIcon } from "../components/icons/SocialIcons"
 
 const linkClass = ({ isActive }) =>
   `inline-flex items-center justify-center no-underline
-   text-[clamp(0.8rem,1.1vw,0.95rem)] font-semibold
+   text-[clamp(0.85rem,1vw,2rem)] font-semibold
    px-[clamp(10px,1.4vw,14px)] py-2 rounded-full
    transition-colors whitespace-nowrap
    focus-visible:outline-2 focus-visible:outline-offset-2
@@ -45,10 +45,10 @@ export default function RootLayout() {
 
       <Background />
 
-      <header className="relative z-10 flex items-center justify-between gap-[clamp(6px,1.5vw,16px)]
-                   px-[clamp(12px,3.5vw,40px)] py-[clamp(10px,2.5vw,28px)]">
+      <header className="relative z-20 flex items-center justify-between gap-[clamp(6px,1.5vw,16px)] 
+             px-[clamp(12px,3.5vw,40px)] py-[clamp(10px,2.5vw,28px)]">
 
-        <div className="min-w-0 text-[clamp(0.85rem,2.4vw,1.9rem)] font-bold tracking-[0.01em] text-slate-600 whitespace-nowrap">
+        <div className="min-w-0 text-[clamp(1rem,2.4vw,1.9rem)] font-bold tracking-[0.01em] text-slate-600 whitespace-nowrap">
           Memory Sequence
         </div>
         <nav className="flex items-center gap-[clamp(4px,1vw,10px)]" aria-label="Primary">
