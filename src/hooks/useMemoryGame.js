@@ -1,3 +1,5 @@
+// main game logic driver
+
 import { useEffect, useState } from "react";
 import { PHASE, NOTES } from "../lib/constants";
 import { playNote } from "../lib/audio";

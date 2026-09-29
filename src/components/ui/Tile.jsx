@@ -13,6 +13,7 @@ export default function Tile({ idx, flashColor, isFlashing, isPressed, onActivat
     onActivate?.(idx)
   }
 
+  // heavy lifting to make it look darn good was achieved by alot of CSS gradients and svg blur filter and shadows
   return (
     <button
       aria-label={`Tile ${idx}`}

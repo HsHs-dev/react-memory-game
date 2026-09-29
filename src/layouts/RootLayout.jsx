@@ -1,8 +1,8 @@
-import { NavLink, useOutlet, useLocation, href } from "react-router";
+import { NavLink, useOutlet, useLocation } from "react-router";
 import Background from "../components/ui/Background";
 import { motion, AnimatePresence } from "motion/react";
 import NavMenu from "../components/ui/NavMenu";
-import { GitHubIcon, XIcon } from "../components/icons/SocialIcons"
+import { GitHubIcon, XIcon, LinkedInIcon } from "../components/icons/SocialIcons"
 
 const linkClass = ({ isActive }) =>
   `inline-flex items-center justify-center no-underline
@@ -20,7 +20,8 @@ export default function RootLayout() {
 
   const MENU_ITEMS = [
     { label: "GitHub", href: "https://github.com/hshs-dev/react-memory-game", Icon: GitHubIcon },
-    { label: "X", href: "https://x.com/hshs_dev", Icon: XIcon }
+    { label: "X", href: "https://x.com/hshs_dev", Icon: XIcon },
+    { label: "LinkedIn", href: "https://linkedin.com/in/hshsdev", Icon: LinkedInIcon }
   ]
 
   const outlet = useOutlet()

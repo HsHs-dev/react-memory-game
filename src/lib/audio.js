@@ -1,3 +1,5 @@
+// AI generated web audio
+
 let audioCtx;
 
 export function playNote(freq) {

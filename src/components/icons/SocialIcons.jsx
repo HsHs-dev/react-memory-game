@@ -1,3 +1,5 @@
+// social links icons for the navbar, because I am too lazy to download font awesome library
+
 export function GitHubIcon({ className }) {
   return (
     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className={className}>

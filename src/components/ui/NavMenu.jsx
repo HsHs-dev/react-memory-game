@@ -24,6 +24,7 @@ export default function NavMenu({ items, className = "" }) {
     };
   }, [open]);
 
+  // animated burger menu for social links on mobile
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       <button
