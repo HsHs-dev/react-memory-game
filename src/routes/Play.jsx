@@ -1,4 +1,3 @@
-import PlayLayout from "../components/PlayLayout";
 import Board from "../components/Board";
 import { useMemoryGame } from "../hooks/useMemoryGame";
 import { PHASE } from "../lib/constants";
@@ -20,8 +19,7 @@ export default function Play() {
 
 
   return (
-    <PlayLayout>
-
+    <>
       <FeedbackFlash kind={feedback} />
 
       <StatusArea phase={phase} sequence={sequence} />
@@ -42,7 +40,6 @@ export default function Play() {
       <ActionArea phase={phase} onStart={startGame} />
 
       <GameOverCard phase={phase} onStart={startGame} sequence={sequence} />
-
-    </PlayLayout>
+    </>
   );
 }
