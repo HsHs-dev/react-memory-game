@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { getScores } from "../lib/scores";
 import LeaderboardRow from "../components/ui/LeaderBoardRow";
 
-const MAX_ROWS = 10;
+const MAX_ROWS = 100;
 
 export default function Leaderboard() {
+
   const [entries, setEntries] = useState(null);
   const [error, setError] = useState(null);
 
