@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { getName, setName, getBest, submitScore } from "../../lib/scores";
 import NamePrompt from "./NamePrompt";
@@ -6,19 +6,31 @@ import NamePrompt from "./NamePrompt";
 export default function Overlay({ sequence, onRestart }) {
 
   const [showPrompt, setShowPrompt] = useState(!getName());
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState(() => (getName() ? "submitting" : "idle"));
+  const hasRun = useRef(false);
 
-  const handleNameSubmit = async (name) => {
+  const submit = async (name) => {
+    try {
+      const result = await submitScore({ name, level: sequence.length });
+      setStatus(result?.skipped ? "not-best" : "new-best");
+    } catch (err) {
+      console.error("submit failed:", err);
+      setStatus("error");
+    }
+  };
+
+  useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+    const name = getName();
+    if (name) submit(name);
+  }, []);
+
+  const handleNameSubmit = (name) => {
     setName(name);
     setShowPrompt(false);
     setStatus("submitting");
-    try {
-      await submitScore({ name, level: sequence.length });
-      setStatus("saved");
-    } catch (e) {
-      console.error("submit failed:", e);
-      setStatus("error");
-    }
+    submit(name);
   };
 
   return (
@@ -57,16 +69,7 @@ export default function Overlay({ sequence, onRestart }) {
         {showPrompt ? (
           <NamePrompt onSubmit={handleNameSubmit} />
         ) : (
-          <div className="flex flex-col items-center mt-5 min-h-[62px]">
-            <span className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-700 font-semibold">
-              {status === "submitting" && "Saving…"}
-              {status === "error" && "Couldn't save · Best"}
-              {(status === "idle" || status === "saved") && "Best"}
-            </span>
-            <span className="text-2xl font-semibold text-slate-900 tabular-nums mt-1">
-              {getBest()}
-            </span>
-          </div>
+          <StatusBlock status={status} level={sequence.length} />
         )}
 
         <motion.button
@@ -83,5 +86,33 @@ export default function Overlay({ sequence, onRestart }) {
         </motion.button>
       </motion.div>
     </motion.div>
+  );
+}
+
+function StatusBlock({ status, level }) {
+  const config = {
+    idle: { label: "Best", value: getBest(), className: "text-slate-700" },
+    submitting: { label: "Saving…", value: getBest(), className: "text-slate-500" },
+    "new-best": { label: "New Best!", value: level, className: "text-emerald-700" },
+    "not-best": { label: "Your Best", value: getBest(), className: "text-slate-700" },
+    error: { label: "Couldn't save", value: getBest(), className: "text-slate-500" },
+  };
+  const c = config[status] ?? config.idle;
+
+  return (
+    <div className="flex flex-col items-center mt-5 min-h-[62px]">
+      <span className={`text-[0.65rem] uppercase tracking-[0.2em] font-semibold ${c.className}`}>
+        {c.label}
+      </span>
+      <motion.span
+        key={status}
+        initial={{ scale: 0.7, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="text-2xl font-semibold text-slate-900 tabular-nums mt-1"
+      >
+        {c.value}
+      </motion.span>
+    </div>
   );
 }
