@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .aider*
+
+# secrets
+.env
+.env.local
+.env.*.local
