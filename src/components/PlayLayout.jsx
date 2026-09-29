@@ -1,7 +1,7 @@
 import Background from "./ui/Background";
 import Board from "./Board";
 
-const PlayLayout = ({ children, feedback }) => {
+const PlayLayout = ({ children }) => {
   return <main className="relative min-h-dvh flex flex-col items-center justify-center p-4 bg-[linear-gradient(160deg,var(--bg-cloud-1)_0%,var(--bg-cloud-2)_55%,var(--bg-cloud-3)_100%)]">
 
     <svg aria-hidden="true" className="absolute w-0 h-0 overflow-hidden">
@@ -18,14 +18,6 @@ const PlayLayout = ({ children, feedback }) => {
     </svg>
 
     <Background />
-
-    {/* Feedback flash */}
-    {feedback && (
-      <div
-        aria-hidden="true"
-        className={`feedback-flash is-${feedback}`}
-      />
-    )}
 
     {children}
   </main>

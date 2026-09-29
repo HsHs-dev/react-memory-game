@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { NOTES } from "../../constants"
-import { playNote } from "../../audio"
+import { NOTES } from "../../lib/constants"
+import { playNote } from "../../lib/audio"
 
 export default function Tile({ idx, flashColor, isFlashing, isPressed, onActivate }) {
 
