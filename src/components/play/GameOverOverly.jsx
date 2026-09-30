@@ -90,13 +90,15 @@ export default function Overlay({ sequence, onRestart }) {
 }
 
 function StatusBlock({ status, level }) {
+
   const config = {
     idle: { label: "Best", value: getBest(), className: "text-slate-700" },
-    submitting: { label: "Saving…", value: getBest(), className: "text-slate-500" },
+    submitting: { label: "Saving…", value: "-", className: "text-slate-500" },
     "new-best": { label: "New Best!", value: level, className: "text-emerald-700" },
     "not-best": { label: "Your Best", value: getBest(), className: "text-slate-700" },
     error: { label: "Couldn't save", value: getBest(), className: "text-slate-500" },
   };
+
   const c = config[status] ?? config.idle;
 
   return (
