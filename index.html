@@ -11,7 +11,74 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <title>memory-game</title>
+    <!-- Static meta tags for SEO -->
+
+    <title>Memory Sequence — Free Online Memory Game</title>
+    <meta
+      name="description"
+      content="Test how far your memory can go. Watch the sequence of colored tiles, then repeat it back. Play free in your browser — no download required."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Open Graph (for social sharing) -->
+    <meta
+      property="og:title"
+      content="Memory Sequence — Free Online Memory Game"
+    />
+    <meta
+      property="og:description"
+      content="Watch the sequence. Repeat it back. How far can your memory go?"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://hshs-dev.github.io/react-memory-game/"
+    />
+    <meta
+      property="og:image"
+      content="https://hshs-dev.github.io/react-memory-game/og-image.png"
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Memory Sequence — Free Online Memory Game"
+    />
+    <meta
+      name="twitter:description"
+      content="Watch the sequence. Repeat it back. How far can your memory go?"
+    />
+    <meta
+      name="twitter:image"
+      content="https://hshs-dev.github.io/react-memory-game/og-image.png"
+    />
+
+    <!-- Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["VideoGame", "WebApplication"],
+        "name": "Memory Sequence",
+        "description": "A free browser-based memory game. Watch the sequence of colored tiles, then repeat it back. How far can your memory go?",
+        "url": "https://hshs-dev.github.io/react-memory-game/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Web",
+        "genre": "Puzzle",
+        "playMode": "SinglePlayer",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+
+    <!-- Google Search Console -->
+    <meta
+      name="google-site-verification"
+      content="WT-BVpRYOQl_eDLcgLP6bUjwNSveT-SWrjxGq2roWMA"
+    />
   </head>
   <body>
     <div id="root"></div>

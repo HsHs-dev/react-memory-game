@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hshs-dev.github.io/react-memory-game/sitemap.xml
