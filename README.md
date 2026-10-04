@@ -1,16 +1,16 @@
 ```mermaid
 stateDiagram-v2
     [*] --> Idle
-    Idle --> ShowingSequence: Start / Next Round pressed
+    Idle --> Showing: Start / play again pressed
 
-    ShowingSequence --> AwaitingInput: sequence playback finished
+    Showing --> Inputting: sequence playback finished
 
-    AwaitingInput --> AwaitingInput: correct click (mid-sequence)
-    AwaitingInput --> Success: correct click (final in sequence)
-    AwaitingInput --> Fail: incorrect click
+    Inputting --> Inputting: correct click (mid-sequence)
+    Inputting --> Success: correct click (final in sequence)
+    Inputting --> Fail: incorrect click
 
-    Success --> ShowingSequence: after brief pause, sequence++
+    Success --> Showing: sequence++
     Fail --> GameOver: after brief pause
 
-    GameOver --> Idle: restart pressed
+    GameOver --> Idle: play again pressed
 ```
