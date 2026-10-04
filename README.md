@@ -18,7 +18,7 @@ The game idea is simple yet elegant, it was inspired by Human Bench Mark website
 
 ## Project Structure
 
-```bash
+```
 .
 ├── design
 │   ├── about-figma-reference.svg
