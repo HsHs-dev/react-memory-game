@@ -8,7 +8,7 @@
 
 ## Story
 
-After I finished React JS basics from [CS571](https://github.com/HsHs-dev/UW-Madison-CS571) course, I thought about building a capstone project, applying the new set of skills I learned, but I didn't want to go down the traditional route and build a TO-DO List app, so I built a GAME!
+After I finished React JS basics from [CS571](https://github.com/HsHs-dev/UW-Madison-CS571) course, I thought about building a capstone project, applying the new set of skills I learned, but I didn't want to go down the traditional route and build a TODO List app, so I built a GAME!
 
 The game idea is simple yet elegant, it was inspired by Human Bench Mark website [**Sequence Memory**](https://humanbenchmark.com/tests/sequence) test, yet with a WAY better design and more features.
 
