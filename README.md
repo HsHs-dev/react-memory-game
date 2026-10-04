@@ -1,16 +1,7 @@
-```mermaid
-stateDiagram-v2
-    [*] --> Idle
-    Idle --> Showing: Start / play again pressed
+# React Memory Game
 
-    Showing --> Inputting: sequence playback finished
+After I finished React JS basics from [CS571](https://cs571.org) course, I thought about building a capstone project, applying the new set of skills I learned, but I didn't want to go down the traditional route and build a TO-DO List app, so I built a GAME!
 
-    Inputting --> Inputting: correct click (mid-sequence)
-    Inputting --> Success: correct click (final in sequence)
-    Inputting --> Fail: incorrect click
+## Finite State Machine
 
-    Success --> Showing: sequence++
-    Fail --> GameOver: after brief pause
-
-    GameOver --> Idle: play again pressed
-```
+![Game Finite State Machine](./fsm.svg)
