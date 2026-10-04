@@ -1,4 +1,4 @@
-# React Memory Game <img src="./favicon.svg" width="32" height="32" alt="memory sequence game icon">
+# <img src="./favicon.svg" width="32" height="32" alt="memory sequence game icon"> React Memory Game
 
 ## Table of Contents
 
