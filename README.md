@@ -1,5 +1,9 @@
 # React Memory Game
 
+<div align="center">
+    <img src="./favicon.svg" alt="sequence memory game icon">
+</div>
+
 ## Table of Contents
 
 - [Story](#story)
