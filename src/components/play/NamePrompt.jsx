@@ -25,7 +25,7 @@ export default function NamePrompt({ onSubmit }) {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Alex"
+        placeholder="Hassan"
         maxLength={20}
         autoComplete="off"
         spellCheck={false}
@@ -53,3 +53,4 @@ export default function NamePrompt({ onSubmit }) {
     </form>
   );
 }
+
