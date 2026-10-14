@@ -2,6 +2,8 @@
 
 A memory sequence game built with React, Vite, and Tailwind CSS. Watch the pattern, repeat it back, survive the next round.
 
+![a screenshot of memory sequence game play page](./Screenshot.png)
+
 ## Live Demo
 
 🎮 **[Play Memory Sequence →](https://hshs-dev.github.io/react-memory-game/)**
