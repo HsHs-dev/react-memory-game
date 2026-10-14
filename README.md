@@ -1,10 +1,18 @@
 # <img src="./favicon.svg" width="32" height="32" alt="memory sequence game icon"> React Memory Game
 
+A memory sequence game built with React, Vite, and Tailwind CSS. Watch the pattern, repeat it back, survive the next round.
+
+## Live Demo
+
+🎮 **[Play Memory Sequence →](https://hshs-dev.github.io/react-memory-game/)**
+
 ## Table of Contents
 
 - [Story](#story)
 - [Game Finite State Machine](#finite-state-machine)
 - [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
+- [License](#license)
 
 ## Story
 
@@ -15,6 +23,15 @@ The game idea is simple yet elegant, it was inspired by Human Bench Mark website
 ## Finite State Machine
 
 ![Game Finite State Machine](./fsm.svg)
+
+| Phase       | What's happening                        | Exits to                                  |
+| ----------- | --------------------------------------- | ----------------------------------------- |
+| `IDLE`      | Intro screen, waiting for "Start"       | `SHOWING`                                 |
+| `SHOWING`   | Sequence plays back, one tile at a time | `INPUTTING`                               |
+| `INPUTTING` | Waiting for the player's input          | `SHOWING` (correct) or `GAMEOVER` (wrong) |
+| `GAMEOVER`  | Score card, waiting for "Play Again"    | `SHOWING`                                 |
+
+All phase transitions live in `src/hooks/useMemoryGame.js`.
 
 ## Project Structure
 
@@ -76,3 +93,20 @@ The game idea is simple yet elegant, it was inspired by Human Bench Mark website
 └── vite.config.js
 
 ```
+
+## Tech Stack
+
+| Layer       | Choice                       | Why                                                                |
+| ----------- | ---------------------------- | ------------------------------------------------------------------ |
+| Build       | Vite                         | Fast HMR, first-class React support                                |
+| UI          | React 19                     | Component model for the tile grid and phase-based screens          |
+| Styling     | Tailwind CSS v4              | Utility-first for layout, custom CSS for the glass keycap skin     |
+| Animation   | Motion                       | Handles mount/unmount transitions and controller-driven animations |
+| Audio       | Web Audio API                | Synthesized tones — no assets, no latency, sample-accurate timing  |
+| Routing     | React Router v8 (HashRouter) | HashRouter avoids GitHub Pages 404s on refresh                     |
+| Leaderboard | SimpleBoards                 | Hosted leaderboard backend, no server to run                       |
+| Hosting     | GitHub Pages                 | Free, deploys automatically from `main`                            |
+
+## License
+
+[MIT](LICENSE)
