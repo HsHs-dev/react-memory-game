@@ -12,6 +12,8 @@ A memory sequence game built with React, Vite, and Tailwind CSS. Watch the patte
 - [Game Finite State Machine](#finite-state-machine)
 - [Project Structure](#project-structure)
 - [Tech Stack](#tech-stack)
+- [Running Locally](#running-locally)
+- [AI Usage](#ai-usage)
 - [License](#license)
 
 ## Story
@@ -106,6 +108,19 @@ All phase transitions live in `src/hooks/useMemoryGame.js`.
 | Routing     | React Router v8 (HashRouter) | HashRouter avoids GitHub Pages 404s on refresh                     |
 | Leaderboard | SimpleBoards                 | Hosted leaderboard backend, no server to run                       |
 | Hosting     | GitHub Pages                 | Free, deploys automatically from `main`                            |
+
+## Running Locally
+
+```bash
+git clone https://github.com/hshs-dev/react-memory-game.git
+cd react-memory-game
+npm install
+npm run dev
+```
+
+## AI Usage
+
+AI was a great companion for this project in terms of designing and code reviewing. I hade the vissioin for the glassy looking buttons and the cloudy creamy atmoshphere for the game, but my UI/UX design skills wasn't my strongest trait, but my judgment, vission, and direction was. Also when writing code you don't see your own flaws, so I had AI as a companion and we did peer-to-peer code reviewing
 
 ## License
 
